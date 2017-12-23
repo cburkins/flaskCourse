@@ -14,7 +14,7 @@
 - in the Package selector, select "Category" (much easier to read)
 - Type "python3", and select the interpreter
 - Type "pip3", and select the pip installer
-- 
+
 
 ### Accessing this code
 
