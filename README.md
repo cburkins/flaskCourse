@@ -1,12 +1,12 @@
 
 
-###Resources
+### Resources
 
 - cygwin on Windows 10
 - python 3 (installed via Cygwin installer)
 
 
-###Installing Cygwin and Python3
+### Installing Cygwin and Python3
 
 - Re-run the cygwin install
 - NOTE: if you haven't run Cygwin in a while, it upgrades lots/all packages
