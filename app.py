@@ -1,5 +1,6 @@
-# From the flask package, import the Flask Class
-from flask import Flask
+# From the flask package, import the Flask Class (upper-case)
+# From the flask package, import teh jsonify method (lower-case)
+from flask import Flask, jsonify
 
 # Create a flask object using a unique name
 app = Flask(__name__)
@@ -9,7 +10,17 @@ app = Flask(__name__)
 @app.route('/hello')
 def home():
 	return "Hello, world!"
-
+stores = [
+	{
+		'name': 'My Wonderful Store',
+		'items': [
+			{
+			'name': 'My Item',
+			'price': 15.99
+			}
+		]
+	}
+]
 
 # POST - used to receive data (since we're the server)
 # GET - used to send data back 
@@ -31,7 +42,9 @@ def get_store(name):
 # GET /store
 @app.route('/store')
 def get_stores():
-	pass
+	# jsonify takes a dictionary, and our stores data structure is actually a list
+	# add a key to make the list a dictionary
+	return jsonify({'stores': stores})
 
 # POST /store/<string:name>/item {name:, price:}
 @app.route('/store/<string:name>/item', methods=['POST'])
