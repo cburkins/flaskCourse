@@ -16,13 +16,21 @@
 - Type "pip3", and select the pip installer
 
 
-### Accessing this code
+### Accessing this code (for the class)
 
 - https://github.com/schoolofcode-me/rest-api-sections/tree/master/section3
-
 
 ### Other stuff
 
 - within Cygwin
 - pip3 install flask
 
+### Running it
+
+- Within Cygwin
+- python3 app.py
+- Should say:
+
+```
+* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+```
