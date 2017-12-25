@@ -34,3 +34,35 @@
 ```
 * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 ```
+
+### Section 4
+
+- Within Cygwin
+- pip3 install virtualenv
+- virtualenv venv --python=python3
+- source venv/bin/activate
+
+Testing and leaving the virtualenv
+
+- python -V (should show you version 3)
+- deactivate 
+- python -V (will likely show you version 2)
+- source venv/bin/activate
+- python -V (will show you version 3 again)
+
+Build out rest of virtualenv
+
+NOTE: you no longer need pip3
+
+
+- pip install Flask-RESTful  (uh-oh, pip cannot handled spaces in the path to the env)
+
+Try this instead
+
+-  python venv/bin/pip install Flask-RESTful
+
+Ah, turns out unix scripts cannot have a space in the shebang path
+
+To check out what's installed
+
+- python venv/bin/pip freeze
