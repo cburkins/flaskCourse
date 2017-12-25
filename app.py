@@ -1,6 +1,7 @@
 # From the flask package, import the Flask Class (upper-case)
-# From the flask package, import teh jsonify method (lower-case)
-from flask import Flask, jsonify
+# From the flask package, import the jsonify method (lower-case)
+# From the flask package, import the request method - not plural, plural is a different method (lower-case)
+from flask import Flask, jsonify, request
 
 # Create a flask object using a unique name
 app = Flask(__name__)
@@ -31,13 +32,27 @@ stores = [
 # By default, @app.route decorator does a GET request, and browsers only do GET requests
 @app.route('/store', methods=['POST'])
 def create_store():
-	return "create_store()"
+	# "request" is the request that was made to this endpoint
+	# get_jjson() method returns the JSON that was passed to us by caller, namely the name of the store they'd like to create
+	print ("test")
+	request_data = request.get_json();
+	print (request_data);
+	new_store = {
+		'name': request_data['name'],
+		'items': []
+	}
+	stores.append(new_store)
+	# return the newly-created store so that the caller knows we successfully created new store
+	return jsonify(new_store)
 
 # GET /store/<string:name>
 # <string:name> is flask syntax for making a parameter available to the function
 @app.route('/store/<string:name>')
 def get_store(name):
-	return "get_store(%s)" % (name)
+	for store in stores:
+		if store['name'] == name:
+			return jsonify(store)
+	return jsonify({'message': 'store not found'})
 
 # GET /store
 @app.route('/store')
@@ -49,11 +64,37 @@ def get_stores():
 # POST /store/<string:name>/item {name:, price:}
 @app.route('/store/<string:name>/item', methods=['POST'])
 def create_item_store(name):
-	pass
+	request_data = request.get_json();
+	for store in stores:
+		if store['name'] == name:
+			new_item = {
+				'name': request_data['name'],
+				'price': request_data['price']
+			}
+			store['items'].append(new_item);
+			return jsonify(store);
+	return jsonify({'message': 'store not found'})
+
+
 
 # GET /store/<string:name>/item
 @app.route('/store/<string:name>/item')
 def get_item_in_store(name):
-	pass
+	for store in stores:
+		if store['name'] == name:
+			return jsonify({'items': store['items']})
+	return jsonify({'message': 'store not found'})
+
 
 app.run(port=5000)
+
+
+
+
+
+
+
+
+
+
+
