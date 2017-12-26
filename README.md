@@ -20,48 +20,55 @@
 
 - https://github.com/schoolofcode-me/rest-api-sections/tree/master/section3
 
-### Other stuff
 
-- within Cygwin
-- pip3 install flask
+### Section 3 (using Cygwin, no virtualenv)
 
-### Running it
+**Prep**
 
 - Within Cygwin
-- python3 app.py
+- pip3 install flask
+
+
+**Running it**
+
+- (within Cygwin) python3 app.py
 - Should say:
 
 ```
 * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 ```
 
+
 ### Section 4
 
+**Installing virtualenv**
 - Within Cygwin
 - pip3 install virtualenv
+
+**Creating virtualenv for Section 4**
 - virtualenv venv --python=python3
+
+**Testing and leaving the virtualenv**
+
 - source venv/bin/activate
-
-Testing and leaving the virtualenv
-
 - python -V (should show you version 3)
 - deactivate 
 - python -V (will likely show you version 2)
+
+**Installing libraries in the virtualenv**
+
 - source venv/bin/activate
 - python -V (will show you version 3 again)
+- python venv/bin/pip install Flask-RESTful
 
 Build out rest of virtualenv
 
 NOTE: you no longer need pip3
+NOTE: turns out unix scripts cannot have a space in the shebang path, so "pip install Flask-RESTful" will fail 
 
 
-- pip install Flask-RESTful  (uh-oh, pip cannot handled spaces in the path to the env)
 
-Try this instead
-
--  python venv/bin/pip install Flask-RESTful
-
-Ah, turns out unix scripts cannot have a space in the shebang path
+Ah, 
 
 To check out what's installed
 
