@@ -1,0 +1,183 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Flask Class in Udemy",
+		"_postman_id": "8cff843d-e4e5-c82b-467b-9e51d8597c09",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Section 3",
+			"description": "",
+			"item": [
+				{
+					"name": "/hello",
+					"request": {
+						"url": "http://127.0.0.1:5000/hello",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/store",
+					"request": {
+						"url": "http://127.0.0.1:5000/store",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/store/<name>",
+					"request": {
+						"url": "http://127.0.0.1:5000/store/My Wonderful Store",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/store/<name>/item",
+					"request": {
+						"url": "http://127.0.0.1:5000/store/My Wonderful Store/item",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/store",
+					"request": {
+						"url": "http://127.0.0.1:5000/store",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\t\"Another Store\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/store/<name>/item",
+					"request": {
+						"url": "http://127.0.0.1:5000/store/My Wonderful Store/item",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Another Item\",\n\t\"price\": 10.99\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Section 4",
+			"description": "",
+			"item": [
+				{
+					"name": "/item",
+					"request": {
+						"url": "http://127.0.0.1:5000/item",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "This should return a list of items, each in JSON format."
+					},
+					"response": []
+				},
+				{
+					"name": "/item/<name>",
+					"request": {
+						"url": "http://127.0.0.1:5000/item/<name>",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "This will return one specific item, uniquely identified by its name.  No two items may have the same name."
+					},
+					"response": []
+				},
+				{
+					"name": "/item/<name>",
+					"request": {
+						"url": "http://127.0.0.1:5000/item/chair",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"price\": 15.99\n}"
+						},
+						"description": "This will create a new item.  If the item already exists, it will fail.  (Could have the name in the body, but since name is unique, makes more sense to have it in the path.)"
+					},
+					"response": []
+				},
+				{
+					"name": "/item/<name>",
+					"request": {
+						"url": "http://127.0.0.1:5000/item/<name>",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"price\": 17.99\n}"
+						},
+						"description": "If the item exists, it will update the price.  If the item doesn't exist, a new item (with the requested price) will be created.   This can be run repeatedly"
+					},
+					"response": []
+				},
+				{
+					"name": "/item/<name>",
+					"request": {
+						"url": "http://127.0.0.1:5000/item/<name>",
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "This will return one specific item, uniquely identified by its name.  No two items may have the same name.    Could have the name in the body, but since name is unique, makes more sense to have it in the path."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
