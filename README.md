@@ -39,7 +39,7 @@
 ```
 
 
-### Section 4
+### Section 4 (Flask-RESTful and virtualenv)
 
 **Installing virtualenv**
 - Within Cygwin
@@ -61,15 +61,13 @@
 - python -V (will show you version 3 again)
 - python venv/bin/pip install Flask-RESTful
 
-Build out rest of virtualenv
-
 NOTE: you no longer need pip3
 NOTE: turns out unix scripts cannot have a space in the shebang path, so "pip install Flask-RESTful" will fail 
 
+### Section 4
+
+### Other commands
 
 
-Ah, 
-
-To check out what's installed
 
 - python venv/bin/pip freeze
