@@ -60,6 +60,8 @@
 - source venv/bin/activate
 - python -V (will show you version 3 again)
 - python venv/bin/pip install Flask-RESTful
+- python venv/bin/pip install Flask-JWT
+
 
 NOTE: you no longer need pip3
 NOTE: turns out unix scripts cannot have a space in the shebang path, so "pip install Flask-RESTful" will fail 

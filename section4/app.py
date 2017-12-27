@@ -1,13 +1,26 @@
 
 from flask import Flask, request
-from flask_restful import Resource, Api
+from flask_restful import Resource, Api, reqparse
+
+
 
 app = Flask(__name__)
+app.secret_key = 'jose'
 api = Api(app)
 
 items = []
 
 class Item(Resource):
+
+	# Parser belongs to the class, not any particular item (instance)
+	parser = reqparse.RequestParser()
+	parser.add_argument('price',
+		type=float, 
+		required=True,
+		help="This field cannot be left blank, silly."
+	)
+
+	# GET
 	def get(self, name):
 
 		# filter() will loop through items, returning the list of items where function is true, returns a filter object, not a list
@@ -18,19 +31,44 @@ class Item(Resource):
 		# Return a helpful message (in JSON) along with a 404 status code
 		return {'item': None}, 200 if item else 404	
 
+	# POST
 	def post(self, name):
-		# error control, make sure the item doesn't already exist
+		# error control first, make sure the item doesn't already exist
 		if next(filter(lambda x: x['name'] == name, items), None):
 			return {'message': "An item with name '{}' already exists.".format(name) }, 400
 
-		# Side effect, throws error if content-type isn't set to JSON
-		data = request.get_json();
+		# Use a class method to get/verify given arguments
+		data = Item.parser.parse_args()
+
 		# Add the item
 		item = {'name': name, 'price': data['price']}
 		items.append(item);
 		# flask_restful automatically jsonifies our dictionary
 		# Also return 201 (created)
 		return item, 201;
+
+	# PUT
+	def put(self, name):
+		# Use a class method to get/verify given arguments
+		data = Item.parser.parse_args()
+
+		item = next(filter(lambda x: x['name'] == name, items), None)
+		if item is None:
+			item = {'name': name, 'price': data['price']}
+			items.append(item)
+		else:
+			# Use update() method of dictionary
+			item.update(data)
+		return item;
+
+	# DELETE
+	def delete(self, name):
+		# Tell python that we're not trying to declar a local variable, we want to use the global variable
+		global items;
+		# Find all elements except for one
+		items = list(filter(lambda x: x['name'] != name, items))
+		return {'message': 'Item deleted'}, 200
+
 
 class ItemList(Resource):
 	def get(self):
