@@ -1,12 +1,18 @@
 	
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
+from flask_jwt import JWT, jwt_required
 
+# Our own package
+from security import authenticate, identity
 
 
 app = Flask(__name__)
 app.secret_key = 'jose'
 api = Api(app)
+
+# Initialize the jwt object, creates /auth endpoint
+jwt = JWT(app, authenticate, identity)
 
 items = []
 
@@ -21,6 +27,7 @@ class Item(Resource):
 	)
 
 	# GET
+	@jwt_required()
 	def get(self, name):
 
 		# filter() will loop through items, returning the list of items where function is true, returns a filter object, not a list
