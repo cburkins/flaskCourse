@@ -66,7 +66,16 @@
 NOTE: you no longer need pip3
 NOTE: turns out unix scripts cannot have a space in the shebang path, so "pip install Flask-RESTful" will fail 
 
-### Section 4
+### Section 5
+
+**Creating virtualenv for Section 4**
+
+- virtualenv venv --python=python3
+- source venv/bin/activate
+- python venv/bin/pip install Flask-RESTful Flask-JWT  (also installs Flask)
+
+
+
 
 ### Other commands
 
