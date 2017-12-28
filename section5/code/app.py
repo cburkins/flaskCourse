@@ -13,7 +13,9 @@ app = Flask(__name__)
 app.secret_key = 'jose'
 api = Api(app)
 
-# Initialize the jwt object, creates /auth endpoint
+# Initialize the jwt object
+# Set the endpoint to be /auth
+app.config['JWT_AUTH_URL_RULE'] = '/auth'
 jwt = JWT(app, authenticate, identity)
 
 # http://127.0.0.1/item/<name>  (GET/POST for single items)
