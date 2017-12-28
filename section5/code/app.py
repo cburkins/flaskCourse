@@ -36,7 +36,7 @@ class Item(Resource):
 		# None is the default value if there's nothing in the filter object
 		item = next(filter(lambda x: x['name'] == name, items), None)
 		# Return a helpful message (in JSON) along with a 404 status code
-		return {'item': None}, 200 if item else 404	
+		return {'item': item}, 200 if item else 404	
 
 	# POST
 	def post(self, name):
