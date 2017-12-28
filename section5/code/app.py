@@ -5,7 +5,7 @@ from flask_jwt import JWT, jwt_required
 
 # Our own package
 from security import authenticate, identity
-
+from user import UserRegister
 
 app = Flask(__name__)
 app.secret_key = 'jose'
@@ -86,7 +86,8 @@ class ItemList(Resource):
 api.add_resource(Item, '/item/<string:name>');
 # http://127.0.0.1/items  (GET list all items)
 api.add_resource(ItemList, '/items')
-
+# http://127.0.0.1/register (POST to register a new user)
+api.add_resource(UserRegister, '/register' )
 
 #app.run(port=5000)
 app.run(port=5000, debug=True)
