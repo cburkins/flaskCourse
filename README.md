@@ -68,13 +68,19 @@ NOTE: turns out unix scripts cannot have a space in the shebang path, so "pip in
 
 ### Section 5
 
-**Creating virtualenv for Section 4**
+**Creating virtualenv for Section 5**
 
 - virtualenv venv --python=python3
 - source venv/bin/activate
 - python venv/bin/pip install Flask-RESTful Flask-JWT  (also installs Flask)
 
 
+### Section 6
+
+**Creating virtualenv for Section 5**
+- virtualenv venv --python=python3
+- source venv/bin/activate
+- python venv/bin/pip install Flask-RESTful Flask-JWT Flask-SQLAlchemy (also installs Flask)
 
 
 ### Other commands

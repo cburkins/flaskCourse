@@ -2,6 +2,8 @@
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
+from datetime import timedelta
+
 
 # Our own package
 from security import authenticate, identity
@@ -16,6 +18,9 @@ api = Api(app)
 # Initialize the jwt object
 # Set the endpoint to be /auth
 app.config['JWT_AUTH_URL_RULE'] = '/auth'
+# Set the token expiration time to 30 minutes
+app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=1800)
+# create the jwt object
 jwt = JWT(app, authenticate, identity)
 
 # http://127.0.0.1/item/<name>  (GET/POST for single items)
