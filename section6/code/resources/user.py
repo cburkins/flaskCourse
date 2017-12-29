@@ -27,16 +27,11 @@ class UserRegister(Resource):
 		if UserModel.find_by_username(data['username']):
 			return {"message": "A user with that username already exists"}, 400
 
-		# Open the database
-		connection = sqlite3.connect('data.db')
-		cursor = connection.cursor()
+		# Same, user = UserModel(data['username'], data['password'])
+		# This format is called unpacking, it's important that the parser enforces how many properties are in dictionary
+		user = UserModel(**data)
 
-		# 1st argument (in the tuple) is NULL because that field (id) is auto-incrementing in the DB
-		query = "INSERT INTO users VALUES (NULL, ?, ?)"
-		cursor.execute(query, (data['username'], data['password']))
-
-		connection.commit()
-		connection.close()
+		user.save_to_db()
 
 		# return message to requester along with 201 (created)
 		return {"message": "User created successfully."}, 201

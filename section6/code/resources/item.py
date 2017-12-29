@@ -1,5 +1,4 @@
 
-import sqlite3
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 
@@ -44,7 +43,7 @@ class Item(Resource):
 		item = ItemModel(name, data['price'])
 
 		try:
-			item.insert()
+			item.save_to_db()
 		except:
 			return {"message": "An error occurred inserting the item."}, 500  # 500 = Internal Server Error
 
@@ -58,54 +57,37 @@ class Item(Resource):
 	def put(self, name):
 		# Use a class method to get/verify given arguments
 		data = Item.parser.parse_args()
-
+		# try to retrieve a pre-existing item from the DB
 		item = ItemModel.find_by_name(name)
-		updated_item =  ItemModel(name, data['price'])
 
 		if item is None:
-			try:
-				updated_item.insert()
-			except:
-				return {"message": "An error occurred inserting the item."}, 500
+			# Item was not found in DB, so create a new Object using the given price
+			item = ItemModel(name, data['price'])
 		else:
-			try:
-				updated_item.update()
-			except:
-				return {"message": "An error occurred inserting the item."}, 500
+			# Item WAS found in DB, so modify it's price
+			item.price = data['price']
 
-		return updated_item.json();
+		# Write the object back to the DB
+		item.save_to_db()
+
+		return item.json();
 
 	# - - - - - - - - - - - - - - 
 	# DELETE
 	def delete(self, name):
-		connection = sqlite3.connect('data.db')
-		cursor = connection.cursor()
+		item = ItemModel.find_by_name(name)
+		if item:
+			item.delete_from_db()
 
-		query = "DELETE FROM items WHERE name=?"
-		cursor.execute(query, (name,))
-
-		connection.commit()
-		connection.close()	
-	
 		return {'message': 'Item deleted'}, 200
 
 # --------------------------------------------------------------------------------------------
 
 class ItemList(Resource):
 	def get(self):
-		connection = sqlite3.connect('data.db')
-		cursor = connection.cursor()
-
-		query = "SELECT * FROM items"
-		result = cursor.execute(query)
-
-		items = []
-		for row in result:
-			items.append({'name': row[0], 'price': row[1]})
-
-		connection.close()		
-
-		return {'items': items}
+		# Both of these work
+		return {'items': list(map(lambda x: x.json(), ItemModel.query.all()))}
+		#return {'items': [item.json() for item in ItemModel.query.all()]}
 
 # --------------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------------

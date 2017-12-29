@@ -11,49 +11,23 @@ class UserModel(db.Model):
 	username = db.Column(db.String(80))
 	password = db.Column(db.String(80))
 
-	def __init__(self, _id, username, password):
+	def __init__(self, username, password):
 		# Using _id because id is special within Python
-		# These three things need to exactly match the database columsn for them to be saved into the database
-		self.id = _id;
+		# These two things need to exactly match the database columsn for them to be saved into the database
 		self.username = username
 		self.password = password
 
+	def save_to_db(self):
+		db.session.add(self)
+		db.session.commit()
+
 	@classmethod
 	def find_by_username(cls, username):
-		connection = sqlite3.connect('data.db')
-		cursor = connection.cursor()
-
-		query = "SELECT * FROM users WHERE username=?"
-		# Arguments to execute must always be a tuple
-		result = cursor.execute(query, (username,))
-		row = result.fetchone()
-		if row: 
-			# same as User(row[0], row[1], row[2]) 
-			# @classmethod means we don't have to hardcode the name of the Class in here
-			user = cls(row[0], row[1], row[2])
-		else:
-			user = None
-
-		connection.close()
-		return user
-
+		# SQLAlchemy converts the DB row to a UserModel object
+		return cls.query.filter_by(username=username).first()
 
 	@classmethod
 	def find_by_id(cls, _id):
-		connection = sqlite3.connect('data.db')
-		cursor = connection.cursor()
+		return cls.query.filter_by(id=_id).first()
 
-		query = "SELECT * FROM users WHERE id=?"
-		# Arguments to execute must always be a tuple
-		result = cursor.execute(query, (_id,))
-		row = result.fetchone()
-		if row: 
-			# same as User(row[0], row[1], row[2]) 
-			# @classmethod means we don't have to hardcode the name of the Class in here
-			user = cls(row[0], row[1], row[2])
-		else:
-			user = None
-
-		connection.close()
-		return user
 

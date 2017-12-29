@@ -11,6 +11,9 @@ from resources.item import Item, ItemList
 
 
 app = Flask(__name__)
+# Tell SQLAlchemy location of DB, which is root folder of our project
+# Fun, you can use other DB types, such as mySQL
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 # Tell SQLAlchemy to turn off the Flask SQL Alchemy modification tracker, but does not turn off the underlying (non-Flask) SQL Alchemy tracker
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'jose'

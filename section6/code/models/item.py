@@ -1,6 +1,3 @@
-
-import sqlite3
-
 from db import db
 
 # Create class User with a few properties, also extend (inhertit from) db.Model (which is SQLAlchmey)
@@ -21,39 +18,15 @@ class ItemModel(db.Model):
 
 	@classmethod
 	def find_by_name(cls, name):
-		connection = sqlite3.connect('data.db')
-		cursor = connection.cursor();
+		# Remember, cls = ItemModel
+		return cls.query.filter_by(name=name).first()  # SELECT * FROM items WHERE name=name LIMIT 1
 
-		query = "SELECT * from items where name=?"
-		result = cursor.execute(query, (name,))
-		row = result.fetchone()
-		connection.close();
-		if row:
-			# return an object of type ItemModel object (itself), passing the needed attributes
-			# calls the class's init() method
-			# could also use unpacking, in other words, cls(*row)
-			return cls(row[0], row[1])
+	def save_to_db(self):
+		# SQLAlchemy can write objects directly to the DB
+		# If the id exists, does an update, otherwise, does an insert
+		db.session.add(self)
+		db.session.commit()
 
-
-
-	def insert(self):
-		connection = sqlite3.connect('data.db')
-		cursor = connection.cursor()
-
-		query = "INSERT INTO items VALUES (?, ?)"
-		cursor.execute(query, (self.name, self.price))
-
-		connection.commit()
-		connection.close()	
-
-
-	def update(self):
-		connection = sqlite3.connect('data.db')
-		cursor = connection.cursor()
-
-		query = "UPDATE items SET price=? WHERE name=?"
-		cursor.execute(query, (self.price, self.name))
-
-		connection.commit()
-		connection.close()		
-
+	def delete_from_db(self):
+		db.session.delete(self)
+		db.session.commit()
