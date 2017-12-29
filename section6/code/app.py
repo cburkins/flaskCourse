@@ -11,6 +11,8 @@ from resources.item import Item, ItemList
 
 
 app = Flask(__name__)
+# Tell SQLAlchemy to turn off the Flask SQL Alchemy modification tracker, but does not turn off the underlying (non-Flask) SQL Alchemy tracker
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'jose'
 api = Api(app)
 
@@ -32,9 +34,12 @@ api.add_resource(UserRegister, '/register' )
 
 # Check to see if we're the main program (not just imported)
 if __name__ == '__main__':
-
 	# this file was the file that was run.  
 	# In other words, it WASN'T just imported, so we want to run our main
+
+	# SQLAlchmey, putting it here prevents circular import
+	from db import db
+	db.init_app(app)
 
 	#app.run(port=5000)
 	app.run(port=5000, debug=True)

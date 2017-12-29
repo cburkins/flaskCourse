@@ -1,7 +1,17 @@
 
 import sqlite3
 
-class ItemModel:
+from db import db
+
+# Create class User with a few properties, also extend (inhertit from) db.Model (which is SQLAlchmey)
+class ItemModel(db.Model):
+	# SQLAclhemy database table for this model
+	__tablename__ = 'items'
+	# SQLAlchemy database columns
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(80))
+	price = db.Column(db.Float(precision=2))
+
 	def __init__(self, name, price):
 		self.name = name
 		self.price = price

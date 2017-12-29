@@ -15,6 +15,7 @@ class Item(Resource):
 		help="This field cannot be left blank, silly."
 	)
 
+	# - - - - - - - - - - - - - - 
 	# GET
 	@jwt_required()
 	def get(self, name):
@@ -28,8 +29,7 @@ class Item(Resource):
 		# Item wasn't found, return a helpful message (in JSON) along with a 404 status code
 		return {'message': 'Item not found'}, 404
 
-
-
+	# - - - - - - - - - - - - - - 
 	# POST
 	def post(self, name):
 		# error control first, make sure the item doesn't already exist
@@ -53,6 +53,7 @@ class Item(Resource):
 		return item.json(), 201;
 
 
+	# - - - - - - - - - - - - - - 
 	# PUT
 	def put(self, name):
 		# Use a class method to get/verify given arguments
@@ -74,6 +75,7 @@ class Item(Resource):
 
 		return updated_item.json();
 
+	# - - - - - - - - - - - - - - 
 	# DELETE
 	def delete(self, name):
 		connection = sqlite3.connect('data.db')
