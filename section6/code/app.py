@@ -9,6 +9,10 @@ from security import authenticate, identity
 from resources.user import UserRegister
 from resources.item import Item, ItemList
 
+# Running this application
+# > python3 app.py
+#
+# You may need to start up your virtualenv with "source venv/bin/activate"
 
 app = Flask(__name__)
 # Tell SQLAlchemy location of DB, which is root folder of our project
@@ -24,6 +28,14 @@ api = Api(app)
 app.config['JWT_AUTH_URL_RULE'] = '/auth'
 # Set the token expiration time to 30 minutes
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=1800)
+
+# Create table before first request
+# Decorator that registers a function to be run *before* the first user request to our app
+@app.before_first_request
+def create_tables():
+	# SQL Alchemy function to create all the required database tables
+	db.create_all()
+
 # create the jwt object
 jwt = JWT(app, authenticate, identity)
 
