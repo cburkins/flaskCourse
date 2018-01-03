@@ -5,6 +5,13 @@
 - cygwin on Windows 10
 - python 3 (installed via Cygwin installer)
 
+### Features Uses
+
+- python 3
+- SQLAlchemy
+- Flask with JWT Authentication
+- SQLite
+
 
 ### Installing Cygwin and Python3
 

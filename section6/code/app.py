@@ -4,10 +4,13 @@ from flask_restful import Api
 from flask_jwt import JWT
 from datetime import timedelta
 
-# Our own package
+# Our own packages
 from security import authenticate, identity
+# Import the flask_restful resource that we'll use to create flask endpoints
 from resources.user import UserRegister
 from resources.item import Item, ItemList
+from resources.store import Store, StoreList
+
 
 # Running this application
 # > python3 app.py
@@ -34,11 +37,15 @@ app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=1800)
 @app.before_first_request
 def create_tables():
 	# SQL Alchemy function to create all the required database tables
+	# Will only create tables/columns that it knows about.
+	# In our case, we import resources, which in turn import models, which in turn have table/column definitions
 	db.create_all()
 
 # create the jwt object
 jwt = JWT(app, authenticate, identity)
 
+api.add_resource(Store, '/store/<string:name>')
+api.add_resource(StoreList, '/stores')
 # http://127.0.0.1/item/<name>  (GET/POST for single items)
 api.add_resource(Item, '/item/<string:name>');
 # http://127.0.0.1/items  (GET list all items)

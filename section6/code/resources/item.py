@@ -13,6 +13,11 @@ class Item(Resource):
 		required=True,
 		help="This field cannot be left blank, silly."
 	)
+	parser.add_argument('store_id',
+		type=int, 
+		required=True,
+		help="Every item needs a store id."
+	)
 
 	# - - - - - - - - - - - - - - 
 	# GET
@@ -40,7 +45,8 @@ class Item(Resource):
 		data = Item.parser.parse_args()
 
 		# Add the item
-		item = ItemModel(name, data['price'])
+		# Optionally, could use unpacking so would be ItemModel(name, **data)
+		item = ItemModel(name, data['price'], data['store_id'])
 
 		try:
 			item.save_to_db()
@@ -62,7 +68,8 @@ class Item(Resource):
 
 		if item is None:
 			# Item was not found in DB, so create a new Object using the given price
-			item = ItemModel(name, data['price'])
+			# Optionally, could use unpacking so would be ItemModel(name, **data)
+			item = ItemModel(name, data['price'], data['store_id'])
 		else:
 			# Item WAS found in DB, so modify it's price
 			item.price = data['price']
