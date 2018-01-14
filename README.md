@@ -84,10 +84,14 @@ NOTE: turns out unix scripts cannot have a space in the shebang path, so "pip in
 
 ### Section 6
 
-**Creating virtualenv for Section 5**
+**Creating virtualenv for Section 6**
 - virtualenv venv --python=python3
 - source venv/bin/activate
 - python venv/bin/pip install Flask-RESTful Flask-JWT Flask-SQLAlchemy (also installs Flask)
+
+**Starting the back-end server**
+- source venv/bin/activate
+- python app.py
 
 
 ### Other commands
