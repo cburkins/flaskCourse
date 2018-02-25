@@ -91,7 +91,7 @@ NOTE: turns out unix scripts cannot have a space in the shebang path, so "pip in
 
 **Starting the back-end server**
 - source venv/bin/activate
-- python app.py
+- python code/app.py
 
 
 ### Other commands
