@@ -21,6 +21,7 @@ class Item(Resource):
 
 	# - - - - - - - - - - - - - - 
 	# GET
+	# @jwt_required() requires a valid JWT token to be present in the request
 	@jwt_required()
 	def get(self, name):
 

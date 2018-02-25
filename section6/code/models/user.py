@@ -10,12 +10,18 @@ class UserModel(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	username = db.Column(db.String(80))
 	password = db.Column(db.String(80))
+	enabled = db.Column(db.Integer);
 
-	def __init__(self, username, password):
+	def __init__(self, username, password, enabled):
 		# Using _id because id is special within Python
 		# These two things need to exactly match the database columsn for them to be saved into the database
 		self.username = username
 		self.password = password
+		self.enabled = enabled;
+
+	def json(self):
+		# return {'name': self.name, 'price': self.price}
+		return {'username': self.username, 'password': self.password, 'enabled': self.enabled}
 
 	def save_to_db(self):
 		db.session.add(self)
