@@ -5,7 +5,7 @@
 - cygwin on Windows 10
 - python 3 (installed via Cygwin installer)
 
-### Features Uses
+### Features Used
 
 - python 3
 - SQLAlchemy
