@@ -454,7 +454,7 @@
 			"description": "",
 			"item": [
 				{
-					"name": "/item",
+					"name": "/items",
 					"request": {
 						"url": "{{url}}/items",
 						"method": "GET",
@@ -478,6 +478,54 @@
 						],
 						"body": {},
 						"description": "This will return one specific item, uniquely identified by its name.  No two items may have the same name."
+					},
+					"response": []
+				},
+				{
+					"name": "/user/<username>",
+					"request": {
+						"url": "{{url}}/user/chad3",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "JWT {{jwt_token}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "This will return one specific item, uniquely identified by its name.  No two items may have the same name."
+					},
+					"response": []
+				},
+				{
+					"name": "/users (lists all users)",
+					"request": {
+						"url": "{{url}}/users",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "This should return a list of users, each in JSON format."
+					},
+					"response": []
+				},
+				{
+					"name": "/user/<username>  (enables user)",
+					"request": {
+						"url": "{{url}}/user/chad3",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"enabled\": 1\n}"
+						},
+						"description": "If the item exists, it will update the price.  If the item doesn't exist, a new item (with the requested price) will be created.   This can be run repeatedly"
 					},
 					"response": []
 				},
@@ -570,7 +618,7 @@
 					"response": []
 				},
 				{
-					"name": "/register",
+					"name": "/register  (creates new user)",
 					"request": {
 						"url": "{{url}}/register",
 						"method": "POST",
@@ -583,7 +631,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"jose\", \n\t\"password\": \"asdf\"\n}"
+							"raw": "{\n\t\"username\": \"chad5\", \n\t\"password\": \"asdf5\"\n}"
 						},
 						"description": "Authorize a known user.  Pass in username and password fields (via body).  JWT token gets sent back to you.  Copy that token over to any method that requires it.  You put Authorization key in header, with key \"JTW token\".  Replace <token> with the token that was given to you."
 					},
